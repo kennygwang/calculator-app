@@ -1,4 +1,35 @@
+html, body, #calc-wrapper {
+	width: 100%;
+	height: 100%;
+}
+
 #calculator {
+	margin: 100px auto;
+	width: 240px;
+	height: 175px;
+}
+
+#calc-buttons {
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+}
+
+.btn-row {
 	width: 240px;
 	height: 35px;
+	display: block;
+}
+
+.btn {
+	width: 59px;
+	height: 34px;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	float: left;
+	text-align: center;
+	line-height: 35px;
+}
+
+#btn-clr {
+	width: 179px;
 }
