@@ -9,6 +9,21 @@ html, body, #calc-wrapper {
 	height: 175px;
 }
 
+#calc-display {
+	width: 238px;
+	height: 34px;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+#input {
+	margin-right: 7px;
+	float: right;
+	line-height: 35px;
+	font-family: sans-serif;
+}
+
 #calc-buttons {
 	border-top: 1px solid black;
 	border-left: 1px solid black;
@@ -28,6 +43,11 @@ html, body, #calc-wrapper {
 	float: left;
 	text-align: center;
 	line-height: 35px;
+	font-family: sans-serif;
+}
+
+.opr {
+	width: 58px;
 }
 
 #btn-clr {
