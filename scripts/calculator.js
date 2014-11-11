@@ -6,7 +6,7 @@
 var inputEl = document.getElementById("input"); // a reference to the "input" part of the display
 var operatorEl = document.getElementById("operator"); // a reference to the "next operation" part of the display
 var ansEl = document.getElementById("ans");
-var canNeg = true; // a flag that means everything is in a clean state, like after hitting CLR
+var canNeg = true; // a flag that means I can use the subtract button as a negative sign character
 var ans = null; // store the previous answer
 var operation = null; // store the next pending arithmetic operation
 var isEvaluated = false; // a flag that means the equals button was pressed. This flag became necessary because the minus sign can be both a character and an operand
