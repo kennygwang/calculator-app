@@ -44,7 +44,7 @@ var attachCharBtnEvents = function() {
  */
 var addBtn = document.getElementById("btn-add");
 addBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "" && inputEl.innerHTML !== "-") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -69,7 +69,7 @@ subBtn.addEventListener("click", function(e) {
 		inputEl.innerHTML = "";
 		var node = document.createTextNode("-");
 		inputEl.appendChild(node); // handle the case of submitting only "-"
-	} else if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
+	} else if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "" && inputEl.innerHTML !== "-") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -88,7 +88,7 @@ subBtn.addEventListener("click", function(e) {
  */
 var mulBtn = document.getElementById("btn-mul");
 mulBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "" && inputEl.innerHTML !== "-") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -108,7 +108,7 @@ mulBtn.addEventListener("click", function(e){
  */
 var divBtn = document.getElementById("btn-div");
 divBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "" && inputEl.innerHTML !== "-") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -185,3 +185,16 @@ eqBtn.addEventListener("click", function(e) {
 	inputEl.innerHTML = ans;
 	isEvaluated = true;
 });
+
+var lightswitch = document.getElementById("lightswitch");
+lightswitch.addEventListener("click", function(e) {
+	var page = document.getElementsByTagName("html")[0]
+	page.classList.toggle("dark");
+
+	if (page.classList.contains("dark")) {
+		e.target.innerHTML = "Turn on the lights";
+	} else {
+		e.target.innerHTML = "Turn off the lights";
+	}
+});
+

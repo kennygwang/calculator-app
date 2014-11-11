@@ -1,12 +1,24 @@
+* {
+	-webkit-transition: all .7s ease;
+	-moz-transition: all .7s ease;
+	transition: all .7s ease;
+}
+
 html, body, #calc-wrapper {
+	margin: 0;
 	width: 100%;
 	height: 100%;
 }
 
+.dark {
+	background-color: #373832;
+}
+
 #calculator {
-	margin: 100px auto;
+	margin: 0 auto;
+	margin-top: 150px;
 	width: 240px;
-	height: 175px;
+	height: 210px;
 }
 
 #calc-display {
@@ -15,6 +27,14 @@ html, body, #calc-wrapper {
 	border-top: 1px solid black;
 	border-left: 1px solid black;
 	border-right: 1px solid black;
+}
+
+.dark #calc-display {
+	border-top: 1px solid #DDD;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+	background-color: #272822;
+	color: #DDD;
 }
 
 #operator {
@@ -43,6 +63,11 @@ html, body, #calc-wrapper {
 	border-left: 1px solid black;
 }
 
+.dark #calc-buttons {
+	border-top: 1px solid #DDD;
+	border-left: 1px solid #DDD;
+}
+
 .btn-row {
 	width: 240px;
 	height: 35px;
@@ -55,6 +80,7 @@ html, body, #calc-wrapper {
 	border-right: 1px solid black;
 	border-bottom: 1px solid black;
 	float: left;
+	background-color: white;
 	text-align: center;
 	line-height: 35px;
 	font-family: sans-serif;
@@ -67,8 +93,19 @@ html, body, #calc-wrapper {
 	user-select: none;
 }
 
+.dark .btn {
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	background-color: #272822;
+	color: #DDD;
+}
+
 .btn:active {
 	background-color: #EEE;
+}
+
+.dark .btn:active {
+	background-color: #373832;
 }
 
 .opr {
@@ -76,8 +113,16 @@ html, body, #calc-wrapper {
 	background-color: #D4D4D4;
 }
 
+.dark .opr {
+	background-color: #393937;
+}
+
 .opr:active {
 	background-color: #CCC;
+}
+
+.dark .opr:active {
+	background-color: #292927;
 }
 
 #btn-clr {
@@ -89,6 +134,36 @@ html, body, #calc-wrapper {
 	color: white;
 }
 
+.dark #btn-eq {
+	background-color: #214F8D;
+	color: #DDD;
+}
+
 #btn-eq:active {
 	background-color: #3175E3;
+}
+
+#btn-eq:active {
+	background-color: #315F9D;
+}
+
+#lightswitch {
+	width: 240px;
+	height: 35px;
+	margin: 0 auto;
+	margin-top: 40px;
+	border: 1px solid #272822;
+	border-radius: 5px;
+	font-family: sans-serif;
+	line-height: 35px;
+	text-align: center;
+	background-color: #272822;
+	color: #DDD;
+	cursor: pointer;
+}
+
+.dark #lightswitch {
+	border: 1px solid #DDD;
+	background-color: #DDD;
+	color: black;
 }
