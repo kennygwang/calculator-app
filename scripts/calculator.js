@@ -1,3 +1,8 @@
+/**
+ * Author: Kenneth G. Wang (kennygwang@gmail.com)
+ * Project Calculator App
+ */
+
 var inputEl = document.getElementById("input"); // a reference to the "input" part of the display
 var operatorEl = document.getElementById("operator"); // a reference to the "next operation" part of the display
 var ansEl = document.getElementById("ans");
@@ -6,6 +11,9 @@ var ans = null; // store the previous answer
 var operation = null; // store the next pending arithmetic operation
 var isEvaluated = false; // a flag that means the equals button was pressed. This flag became necessary because the minus sign can be both a character and an operand
 
+/**
+ * This function attaches click handlers to the numeric and decimal point buttons.
+ */
 var attachCharBtnEvents = function() {
 	var numBtns = document.getElementsByClassName("num");
 	for (var i=0; i<numBtns.length; i++) {
@@ -31,6 +39,9 @@ var attachCharBtnEvents = function() {
 	});
 }();
 
+/**
+ * Handle addition.
+ */
 var addBtn = document.getElementById("btn-add");
 addBtn.addEventListener("click", function(e){
 	if (operatorEl.innerHTML === "") {
@@ -47,6 +58,9 @@ addBtn.addEventListener("click", function(e){
 	}
 });
 
+/**
+ * Handle subtraction, as well as the negative sign.
+ */
 var subBtn = document.getElementById("btn-sub");
 subBtn.addEventListener("click", function(e){
 	if (isClean) {
@@ -70,6 +84,9 @@ subBtn.addEventListener("click", function(e){
 	}
 });
 
+/**
+ * Handle multiplication.
+ */
 var mulBtn = document.getElementById("btn-mul");
 mulBtn.addEventListener("click", function(e){
 	if (operatorEl.innerHTML === "") {
@@ -86,6 +103,9 @@ mulBtn.addEventListener("click", function(e){
 	}
 });
 
+/**
+ * Handle division.
+ */
 var divBtn = document.getElementById("btn-div");
 divBtn.addEventListener("click", function(e){
 	if (operatorEl.innerHTML === "") {
@@ -102,6 +122,9 @@ divBtn.addEventListener("click", function(e){
 	}
 });
 
+/**
+ * Handle square root.
+ */
 var sqrtBtn = document.getElementById("btn-sqrt");
 sqrtBtn.addEventListener("click", function(e) {
 	if (inputEl.innerHTML != "-" && operatorEl.innerHTML === "") {
@@ -111,6 +134,9 @@ sqrtBtn.addEventListener("click", function(e) {
 	}
 });
 
+/**
+ * Handle clearing.
+ */
 var clrBtn = document.getElementById("btn-clr");
 clrBtn.addEventListener("click", function(e) {
 	inputEl.innerHTML = "";
@@ -121,7 +147,11 @@ clrBtn.addEventListener("click", function(e) {
 	operation = null;
 });
 
-var evaluate = function() {
+/**
+ * A function that performs the pending operation.
+ */
+var eqBtn = document.getElementById("btn-eq");
+eqBtn.addEventListener("click", function(e) {
 	var a = ans;
 	var b = inputEl.innerHTML;
 	if (a === null) {
@@ -147,9 +177,4 @@ var evaluate = function() {
 	operatorEl.innerHTML = "";
 	inputEl.innerHTML = ans;
 	isEvaluated = true;
-};
-
-var eqBtn = document.getElementById("btn-eq");
-eqBtn.addEventListener("click", function(e) {
-	evaluate();
 });
