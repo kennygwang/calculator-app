@@ -1,5 +1,6 @@
 var inputEl = document.getElementById("input"); // a reference to the "input" part of the display
 var operatorEl = document.getElementById("operator"); // a reference to the "next operation" part of the display
+var ansEl = document.getElementById("ans");
 var isClean = true; // a flag that means everything is in a clean state, like after hitting CLR
 var ans = null; // store the previous answer
 var operation = null; // store the next pending arithmetic operation
@@ -30,6 +31,22 @@ var attachCharBtnEvents = function() {
 	});
 }();
 
+var addBtn = document.getElementById("btn-add");
+addBtn.addEventListener("click", function(e){
+	if (operatorEl.innerHTML === "") {
+		if (ans === null) {
+			ans = inputEl.innerHTML;
+		}
+		if (isEvaluated) {
+			isEvaluated = false;
+		}
+		ansEl.innerHTML = ans;
+		operatorEl.innerHTML = "+";
+		inputEl.innerHTML = "";
+		operation = "add";
+	}
+});
+
 var subBtn = document.getElementById("btn-sub");
 subBtn.addEventListener("click", function(e){
 	if (isClean) {
@@ -38,12 +55,59 @@ subBtn.addEventListener("click", function(e){
 		var node = document.createTextNode("-");
 		inputEl.appendChild(node); // handle the case of submitting only "-"
 	} else {
-		operatorEl.innerHTML = "-";
+		if (operatorEl.innerHTML === "") {
+			if (ans === null) {
+				ans = inputEl.innerHTML;
+			}
+			if (isEvaluated) {
+				isEvaluated = false;
+			}
+			ansEl.innerHTML = ans;
+			operatorEl.innerHTML = "-";
+			inputEl.innerHTML = "";
+			operation = "subtract";
+		}
+	}
+});
+
+var mulBtn = document.getElementById("btn-mul");
+mulBtn.addEventListener("click", function(e){
+	if (operatorEl.innerHTML === "") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
+		if (isEvaluated) {
+			isEvaluated = false;
+		}
+		ansEl.innerHTML = ans;
+		operatorEl.innerHTML = "&#215";
 		inputEl.innerHTML = "";
-		operation = "subtract";
+		operation = "multiply";
+	}
+});
+
+var divBtn = document.getElementById("btn-div");
+divBtn.addEventListener("click", function(e){
+	if (operatorEl.innerHTML === "") {
+		if (ans === null) {
+			ans = inputEl.innerHTML;
+		}
+		if (isEvaluated) {
+			isEvaluated = false;
+		}
+		ansEl.innerHTML = ans;
+		operatorEl.innerHTML = "&#247;";
+		inputEl.innerHTML = "";
+		operation = "divide";
+	}
+});
+
+var sqrtBtn = document.getElementById("btn-sqrt");
+sqrtBtn.addEventListener("click", function(e) {
+	if (inputEl.innerHTML != "-" && operatorEl.innerHTML === "") {
+		operation = "sqrt";
+		inputEl.innerHTML = Math.sqrt(parseFloat(inputEl.innerHTML));
+		isEvaluated = true;
 	}
 });
 
@@ -52,6 +116,7 @@ clrBtn.addEventListener("click", function(e) {
 	inputEl.innerHTML = "";
 	operatorEl.innerHTML = "";
 	isClean = true;
+	isEvaluated = false;
 	ans = null;
 	operation = null;
 });
@@ -63,7 +128,7 @@ var evaluate = function() {
 		ans = b;
 		return;
 	}
-	if (b === "-") {
+	if (b === "-" || b === "") {
 		return;
 	}
 	a = parseFloat(a);
@@ -78,6 +143,7 @@ var evaluate = function() {
 	} else if (operation === "divide") {
 		ans = a / b;
 	}
+	ansEl.innerHTML = "";
 	operatorEl.innerHTML = "";
 	inputEl.innerHTML = ans;
 	isEvaluated = true;
