@@ -33,6 +33,11 @@ var attachCharBtnEvents = function() {
 	decBtn.addEventListener("click", function(e) {
 		if(inputEl.innerHTML.indexOf(".") === -1) {
 			canNeg = false;
+			if (isEvaluated) { // if the equals sign was just pressed, then the next character will start a new calculation
+				inputEl.innerHTML = "";
+				ans = null;
+				isEvaluated = false;
+			}
 			var node = document.createTextNode(".");
 			inputEl.appendChild(node);
 		}
