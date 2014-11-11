@@ -6,7 +6,7 @@
 var inputEl = document.getElementById("input"); // a reference to the "input" part of the display
 var operatorEl = document.getElementById("operator"); // a reference to the "next operation" part of the display
 var ansEl = document.getElementById("ans");
-var isClean = true; // a flag that means everything is in a clean state, like after hitting CLR
+var canNeg = true; // a flag that means everything is in a clean state, like after hitting CLR
 var ans = null; // store the previous answer
 var operation = null; // store the next pending arithmetic operation
 var isEvaluated = false; // a flag that means the equals button was pressed. This flag became necessary because the minus sign can be both a character and an operand
@@ -18,7 +18,7 @@ var attachCharBtnEvents = function() {
 	var numBtns = document.getElementsByClassName("num");
 	for (var i=0; i<numBtns.length; i++) {
 		numBtns[i].addEventListener("click", function(e) {
-			isClean = false;
+			canNeg = false;
 			if (isEvaluated) { // if the equals sign was just pressed, then the next character will start a new calculation
 				inputEl.innerHTML = "";
 				ans = null;
@@ -32,7 +32,7 @@ var attachCharBtnEvents = function() {
 	var decBtn = document.getElementById("btn-dec");
 	decBtn.addEventListener("click", function(e) {
 		if(inputEl.innerHTML.indexOf(".") === -1) {
-			isClean = false;
+			canNeg = false;
 			var node = document.createTextNode(".");
 			inputEl.appendChild(node);
 		}
@@ -44,7 +44,7 @@ var attachCharBtnEvents = function() {
  */
 var addBtn = document.getElementById("btn-add");
 addBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -55,6 +55,7 @@ addBtn.addEventListener("click", function(e){
 		operatorEl.innerHTML = "+";
 		inputEl.innerHTML = "";
 		operation = "add";
+		canNeg = true;
 	}
 });
 
@@ -62,25 +63,23 @@ addBtn.addEventListener("click", function(e){
  * Handle subtraction, as well as the negative sign.
  */
 var subBtn = document.getElementById("btn-sub");
-subBtn.addEventListener("click", function(e){
-	if (isClean) {
-		isClean = false;
+subBtn.addEventListener("click", function(e) {
+	if (canNeg) {
+		canNeg = false;
 		inputEl.innerHTML = "";
 		var node = document.createTextNode("-");
 		inputEl.appendChild(node); // handle the case of submitting only "-"
-	} else {
-		if (operatorEl.innerHTML === "") {
-			if (ans === null) {
-				ans = inputEl.innerHTML;
-			}
-			if (isEvaluated) {
-				isEvaluated = false;
-			}
-			ansEl.innerHTML = ans;
-			operatorEl.innerHTML = "-";
-			inputEl.innerHTML = "";
-			operation = "subtract";
+	} else if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
+		if (ans === null) {
+			ans = inputEl.innerHTML;
 		}
+		if (isEvaluated) {
+			isEvaluated = false;
+		}
+		ansEl.innerHTML = ans;
+		operatorEl.innerHTML = "-";
+		inputEl.innerHTML = "";
+		operation = "subtract";
 	}
 });
 
@@ -89,7 +88,7 @@ subBtn.addEventListener("click", function(e){
  */
 var mulBtn = document.getElementById("btn-mul");
 mulBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -100,6 +99,7 @@ mulBtn.addEventListener("click", function(e){
 		operatorEl.innerHTML = "&#215";
 		inputEl.innerHTML = "";
 		operation = "multiply";
+		canNeg = true;
 	}
 });
 
@@ -108,7 +108,7 @@ mulBtn.addEventListener("click", function(e){
  */
 var divBtn = document.getElementById("btn-div");
 divBtn.addEventListener("click", function(e){
-	if (operatorEl.innerHTML === "") {
+	if (operatorEl.innerHTML === "" && inputEl.innerHTML !== "") {
 		if (ans === null) {
 			ans = inputEl.innerHTML;
 		}
@@ -119,6 +119,7 @@ divBtn.addEventListener("click", function(e){
 		operatorEl.innerHTML = "&#247;";
 		inputEl.innerHTML = "";
 		operation = "divide";
+		canNeg = true;
 	}
 });
 
@@ -127,7 +128,7 @@ divBtn.addEventListener("click", function(e){
  */
 var sqrtBtn = document.getElementById("btn-sqrt");
 sqrtBtn.addEventListener("click", function(e) {
-	if (inputEl.innerHTML != "-" && operatorEl.innerHTML === "") {
+	if (inputEl.innerHTML !== "-" && inputEl.innerHTML !== "" && operatorEl.innerHTML === "") {
 		operation = "sqrt";
 		inputEl.innerHTML = Math.sqrt(parseFloat(inputEl.innerHTML));
 		isEvaluated = true;
@@ -141,7 +142,8 @@ var clrBtn = document.getElementById("btn-clr");
 clrBtn.addEventListener("click", function(e) {
 	inputEl.innerHTML = "";
 	operatorEl.innerHTML = "";
-	isClean = true;
+	ansEl.innerHTML = "";
+	canNeg = true;
 	isEvaluated = false;
 	ans = null;
 	operation = null;
@@ -152,10 +154,15 @@ clrBtn.addEventListener("click", function(e) {
  */
 var eqBtn = document.getElementById("btn-eq");
 eqBtn.addEventListener("click", function(e) {
+	if (ansEl.innerHTML === "") {
+		return; // this if statement is just so that equals doesn't do anything if you press it twice.
+	}
+
 	var a = ans;
 	var b = inputEl.innerHTML;
 	if (a === null) {
 		ans = b;
+		isEvaluated = true;
 		return;
 	}
 	if (b === "-" || b === "") {

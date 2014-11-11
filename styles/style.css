@@ -58,12 +58,37 @@ html, body, #calc-wrapper {
 	text-align: center;
 	line-height: 35px;
 	font-family: sans-serif;
+	cursor: pointer;
+
+	/* StackOverflow says this is how you disable text highlighting, across various browsers */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.btn:active {
+	background-color: #EEE;
 }
 
 .opr {
 	width: 58px;
+	background-color: #D4D4D4;
+}
+
+.opr:active {
+	background-color: #CCC;
 }
 
 #btn-clr {
 	width: 179px;
+}
+
+#btn-eq {
+	background-color: #4185F3;
+	color: white;
+}
+
+#btn-eq:active {
+	background-color: #3175E3;
 }
